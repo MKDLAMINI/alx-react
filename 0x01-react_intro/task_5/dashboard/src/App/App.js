@@ -1,30 +1,46 @@
 import React from "react";
-import logo from "../assets/holberton-logo.jpg";
+import Notifications from "../Notifications/Notifications";
+import Header from "../Header/Header";
+import Login from "../Login/Login";
+import Footer from "../Footer/Footer";
+import CourseList from "../CourseList/CourseList";
+import PropTypes from "prop-types";
 import "./App.css";
-import { getFullYear, getFooterCopy } from "../utils/utils";
+import { getLatestNotification } from "../utils/utils";
 
-function App() {
+const listCourses = [
+  { id: 1, name: "ES6", credit: 60 },
+  { id: 2, name: "Webpack", credit: 20 },
+  { id: 3, name: "React", credit: 40 },
+];
+
+const listNotifications = [
+  { id: 1, type: "default", value: "New course available" },
+  { id: 2, type: "urgent", value: "New resume available" },
+  { id: 3, type: "urgent", html: getLatestNotification() },
+];
+
+function App(isLoggedIn) {
   return (
-    <div className="App">
-      <div className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>School dashboard</h1>
+    <React.Fragment>
+      <div className="App">
+        <div className="heading-section">
+          <Notifications listNotifications={listNotifications} />
+          <Header />
+        </div>
+        {isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login />}
+        <Footer />
       </div>
-      <div className="App-body">
-        <p>Login to access the full dashboard</p>
-        <form>
-          <label htmlFor="email">Email:</label>
-          <input type="email" name="email"></input>
-          <label htmlFor="password">Password:</label>
-          <input type="password" name="password"></input>
-          <button>OK</button>
-        </form>
-      </div>
-      <div className="App-footer">
-        Copyright {getFullYear()} - {getFooterCopy()}
-      </div>
-    </div>
+    </React.Fragment>
   );
 }
+
+App.defaultProps = {
+  isLoggedIn: false,
+};
+
+App.propTypes = {
+  isLoggedIn: PropTypes.bool,
+};
 
 export default App;
