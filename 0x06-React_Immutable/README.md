@@ -1,0 +1,1 @@
+immutable.js is a library that provides persistent immutable data structures for JavaScript. With it, you can create immutable versions of common JavaScript types like List, Map, and Set. This helps enforce immutability in JavaScript, ensuring that data doesn't accidentally get modified
